@@ -1,0 +1,20 @@
+# Dependencies and generated deployment assets
+node_modules/
+.netlify
+public/
+
+# Environment and local data
+.env
+.env.*
+!.env.example
+data/*.json
+
+# Logs, caches, and build output
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+coverage/
+dist/
+build/
+.cache/

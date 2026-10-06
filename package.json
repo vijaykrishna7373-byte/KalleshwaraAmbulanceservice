@@ -1,0 +1,18 @@
+{
+  "name": "kalleshwara-ambulance",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Kalleshwara Ambulance website with lead notification backend",
+  "main": "server.js",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "node scripts/prepare-vercel-assets.js",
+    "validate:images": "node scripts/validate-images.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
