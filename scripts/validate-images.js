@@ -2,7 +2,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const root = path.resolve(__dirname, '..');
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+const publicDir = path.join(root, 'public');
+const imageDir = path.join(publicDir, 'images');
+const html = fs.readFileSync(path.join(publicDir, 'index.html'), 'utf8');
 const refs = new Set();
 
 for (const match of html.matchAll(/(?:src|poster|href)\s*=\s*["']([^"']+)["']|url\(\s*["']?([^"')]+)["']?\s*\)/gi)) {
@@ -30,8 +32,8 @@ for (const ref of [...refs].sort()) {
     failed = true;
     continue;
   }
-  const target = path.resolve(root, 'images', filename);
-  if (!target.startsWith(`${path.resolve(root, 'images')}${path.sep}`) || !fs.existsSync(target) || !fs.statSync(target).isFile()) {
+  const target = path.resolve(imageDir, filename);
+  if (!target.startsWith(`${path.resolve(imageDir)}${path.sep}`) || !fs.existsSync(target) || !fs.statSync(target).isFile()) {
     console.error(`FAIL ${ref}`);
     failed = true;
   } else {

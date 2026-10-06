@@ -1,15 +1,17 @@
 # Dependencies and generated deployment assets
 node_modules/
-.netlify
-public/
+.netlify/
+.vercel/
 
 # Environment and local data
 .env
 .env.*
 !.env.example
 data/*.json
+data/leads.json
 
 # Logs, caches, and build output
+npm-debug.log*
 *.log
 .DS_Store
 Thumbs.db

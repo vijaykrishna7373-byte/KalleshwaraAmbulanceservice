@@ -6,12 +6,13 @@ const crypto = require('crypto');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ROOT_DIR = __dirname;
-const HTML_FILE = path.join(ROOT_DIR, 'index.html');
+const PUBLIC_DIR = path.join(ROOT_DIR, 'public');
+const HTML_FILE = path.join(PUBLIC_DIR, 'index.html');
 const DATA_DIR = path.join(ROOT_DIR, 'data');
 const LEADS_FILE = path.join(DATA_DIR, 'leads.json');
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
-const LEAD_NOTIFICATION_EMAIL = process.env.LEAD_NOTIFICATION_EMAIL || 'prashanthlingarajappa15@gmail.com';
+const LEAD_NOTIFICATION_EMAIL = process.env.LEAD_NOTIFICATION_EMAIL || '';
 const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || '';
 const RESEND_FROM_NAME = process.env.RESEND_FROM_NAME || 'Kalleshwara Ambulance';
 const IS_VERCEL = process.env.VERCEL === '1';
@@ -26,7 +27,7 @@ app.use((_req, res, next) => {
   return next();
 });
 if (!IS_VERCEL) {
-  app.use('/images', express.static(path.join(ROOT_DIR, 'images'), { maxAge: '7d', fallthrough: false }));
+  app.use(express.static(PUBLIC_DIR, { maxAge: '7d' }));
 }
 
 function normalizeString(value, maxLength = 2000) {
@@ -343,8 +344,8 @@ app.get('/', (_req, res) => {
   res.sendFile(HTML_FILE);
 });
 
-app.get('/robots.txt', (_req, res) => res.sendFile(path.join(ROOT_DIR, 'robots.txt')));
-app.get('/sitemap.xml', (_req, res) => res.sendFile(path.join(ROOT_DIR, 'sitemap.xml')));
+app.get('/robots.txt', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'robots.txt')));
+app.get('/sitemap.xml', (_req, res) => res.sendFile(path.join(PUBLIC_DIR, 'sitemap.xml')));
 
 app.post('/api/leads', async (req, res) => {
   const { errors, lead } = buildLeadPayload(req.body || {}, req);

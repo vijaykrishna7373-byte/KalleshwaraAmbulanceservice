@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "node scripts/prepare-vercel-assets.js",
+    "build": "npm run validate:images",
     "validate:images": "node scripts/validate-images.js"
   },
   "dependencies": {
